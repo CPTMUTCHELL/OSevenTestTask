@@ -15,10 +15,6 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @OneToMany(mappedBy = "campaign")
-    private Set<Token> tokens;
-    @OneToMany(mappedBy = "campaign")
-    private Set<Provider> providers;
     private boolean deactivated;
 
 }
