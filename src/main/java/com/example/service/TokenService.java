@@ -15,12 +15,15 @@ import java.util.stream.Collectors;
 @Service
 public class TokenService {
     private final TokenRepository repository;
-    public boolean validateByValue(String value) throws CustomException {
+    public Token validateByValue(String value) throws CustomException {
         var token = repository.findByValue(value)
                 .orElseThrow(()->new CustomException("Token not found", HttpStatus.NOT_FOUND, new ErrorResponse("Token not Found")));
         if (token.getCampaign().isDeactivated())
             throw new CustomException("Token belongs to deactivated campaign", HttpStatus.NOT_FOUND, new ErrorResponse("Token belongs to deactivated campaign"));
-        return true;
+        if (token.isDeactivated())
+            throw new CustomException("Token is deactivated", HttpStatus.BAD_REQUEST, new ErrorResponse("Token is deactivated"));
+
+        return token;
     }
     public List<Token> getAll(){
         return repository.findAll();
