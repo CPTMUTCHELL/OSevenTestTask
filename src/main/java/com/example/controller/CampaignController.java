@@ -18,7 +18,7 @@ public class CampaignController {
     private final CampaignService service;
     private final TokenService tokenService;
 
-    @PutMapping("/{id}")
+    @PutMapping("/activation/{id}")
     public ResponseEntity<Campaign> changeActivationById(@RequestBody boolean deactivated,
                                                    @PathVariable int id) throws CustomException {
         var campaignToUpdate = service.getById(id);

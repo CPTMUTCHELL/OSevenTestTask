@@ -12,7 +12,7 @@ public class Handler {
     @ExceptionHandler({CustomException.class})
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
-        log.error("Exception is handled - Response {}, debugMessage: {}, errorCode: {} ",
+        log.error("Exception is handled - Response {}, debugMessage: {} ",
                 ex.getResponseStatus().value(),
                 ex.getMessage(),
                 ex);
