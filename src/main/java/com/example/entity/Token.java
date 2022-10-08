@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -15,7 +16,7 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "token_value")
-    @Size( min= 6,max = 6,message = "Toke's length must be equal to 6 chars")
+    @Pattern(regexp = "^[a-zA-Z0-9_]{6}$" ,message = "Token must be 6 char long alphanumeric")
     private String value;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="campaign_id")
