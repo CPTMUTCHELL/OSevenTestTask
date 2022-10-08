@@ -1,15 +1,17 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "campaign")
-public class Provider {
+@Table(name = "provider")
+public class Provider implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,6 +20,7 @@ public class Provider {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="campaign_id")
     private Campaign campaign;
+    private String product;
     private boolean deactivated;
 
 
