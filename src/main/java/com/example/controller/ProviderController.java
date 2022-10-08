@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.ProviderDto;
+import com.example.entity.Campaign;
 import com.example.entity.Provider;
 import com.example.exception.CustomException;
 import com.example.service.ProviderService;
@@ -9,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
@@ -40,4 +38,13 @@ public class ProviderController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-}
+
+    @PutMapping("/activation/{id}")
+    public ResponseEntity<Provider> changeActivationById(@RequestBody boolean deactivated,
+                                                         @PathVariable int id) throws CustomException {
+        var providerToUpdate = service.getById(id);
+        providerToUpdate.setDeactivated(deactivated);
+        var saved = service.save(providerToUpdate);
+        return new ResponseEntity<>(saved, HttpStatus.OK);
+
+    }}

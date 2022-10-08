@@ -17,8 +17,7 @@ public class Handler {
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
         log.error("Exception is handled - Response {}, debugMessage: {} ",
                 ex.getResponseStatus().value(),
-                ex.getMessage(),
-                ex);
+                ex.getMessage());
 
         return new ResponseEntity<>(ex.getErrorResponse(), ex.getResponseStatus());
     }
@@ -29,8 +28,7 @@ public class Handler {
 
         log.error("Exception is handled - Response {}, debugMessage: {} ",
                 HttpStatus.BAD_REQUEST,
-                ex.getMessage(),
-                ex);
+                ex.getMessage());
 
         return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }

@@ -23,11 +23,20 @@ public class ProviderService {
         Token tokenEntity = tokenService.validateByValue(token);
         if (tokenEntity!=null) {
             return repository.findAll().stream()
-                    .filter(el-> !el.isDeactivated())
+                    .filter(el-> ! el.isDeactivated())
                     .collect(Collectors.toList());
 
         }
         else throw new CustomException("Not found", HttpStatus.NOT_FOUND, new ErrorResponse("Not Found"));
 
     }
+    public Provider getById(Integer id) throws CustomException {
+        var msg = "Provider not found";
+        return repository.findById(id)
+                .orElseThrow(()->new CustomException(msg, HttpStatus.NOT_FOUND, new ErrorResponse(msg)));
+    }
+    public Provider save(Provider provider){
+        return repository.save(provider);
+    }
+
 }

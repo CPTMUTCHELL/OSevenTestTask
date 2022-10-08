@@ -15,8 +15,10 @@ public class CampaignService {
     private final CampaignRepository repository;
 
     public Campaign getById(Integer id) throws CustomException {
+        var msg = "Campaign not found";
+
         return repository.findById(id)
-                .orElseThrow(()->new CustomException("Not found", HttpStatus.NOT_FOUND, new ErrorResponse("Not Found")));
+                .orElseThrow(()->new CustomException(msg, HttpStatus.NOT_FOUND, new ErrorResponse(msg)));
     }
     public Campaign save(Campaign c){
         return repository.save(c);
