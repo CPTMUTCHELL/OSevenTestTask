@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CampaignService {
     private final CampaignRepository repository;
+    private final TokenService tokenService;
 
     public Campaign getById(Integer id) throws CustomException {
         var msg = "Campaign not found";
@@ -22,6 +23,12 @@ public class CampaignService {
     }
     public Campaign save(Campaign c){
         return repository.save(c);
+    }
+    public Campaign changeActivation(Integer id, boolean deactivated){
+        var campaignToUpdate = repository.getById(id);
+        campaignToUpdate.setDeactivated(deactivated);
+        tokenService.changeActivationByCampaignId(id,deactivated);
+        return save(campaignToUpdate);
     }
 
 }

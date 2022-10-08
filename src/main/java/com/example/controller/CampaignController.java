@@ -16,16 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CampaignController {
     private final CampaignService service;
-    private final TokenService tokenService;
 
     @PutMapping("/activation/{id}")
     public ResponseEntity<Campaign> changeActivationById(@RequestBody boolean deactivated,
-                                                   @PathVariable int id) throws CustomException {
-        var campaignToUpdate = service.getById(id);
-        campaignToUpdate.setDeactivated(deactivated);
-        tokenService.changeActivationByCampaignId(id,deactivated);
-        Campaign saved = service.save(campaignToUpdate);
-        return new ResponseEntity<>(saved, HttpStatus.OK);
+                                                   @PathVariable int id) {
+
+        var updatedCampaign = service.changeActivation(id,deactivated);
+        return new ResponseEntity<>(updatedCampaign, HttpStatus.OK);
 
     }
 
