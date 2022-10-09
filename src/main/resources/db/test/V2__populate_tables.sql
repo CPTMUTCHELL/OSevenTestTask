@@ -9,5 +9,6 @@ insert into provider(campaign_id,name,url) values (1,'newProvider','https://test
 insert into product(provider_id,product,price) values (1,'milk',4.5);
 insert into product(provider_id,product,price) values (2,'coffee',5);
 
+
 insert into product(provider_id,product,price) values (3,'coffeeFromNewProvider',2);
 insert into product(provider_id,product,price) values (3,'milkFromNewProvider',3);

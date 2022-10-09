@@ -2,11 +2,15 @@ package com.example;
 import com.example.exception.CustomException;
 import com.example.service.CampaignService;
 import com.example.service.ProviderService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +27,7 @@ public class ProviderTests {
     @Test
     void getProvidersWhenTheCampaignIsActive() throws CustomException {
         var providers = service.getAllActiveByCampaign(token);
-        assertEquals(2, providers.size());
+        assertEquals(3, providers.size());
     }
 
     @Test
@@ -54,6 +58,7 @@ public class ProviderTests {
     void noProvidersShouldReturnWhenDeactivated() throws CustomException {
         service.changeActivation(1,true);
         service.changeActivation(2,true);
+        service.changeActivation(3,true);
         var providers =service.getAllActiveByCampaign(token);
         assertEquals(0, providers.size());
     }

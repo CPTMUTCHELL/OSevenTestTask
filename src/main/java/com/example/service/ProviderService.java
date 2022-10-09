@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.ProductDto;
 import com.example.entity.Campaign;
 import com.example.entity.Provider;
 import com.example.entity.Token;
@@ -44,13 +45,13 @@ public class ProviderService {
         providerToUpdate.setDeactivated(deactivated);
         return save(providerToUpdate);
     }
-    public Provider getAllNewProvidersActiveByCampaign (Integer providerId, String token) throws CustomException {
+    public ProductDto[] getAllNewProvidersActiveByCampaign (Integer providerId, String token) throws CustomException {
         tokenService.validateByValue(token);
         var provider = getById(providerId);
         var template = new RestTemplateBuilder()
                 .setConnectTimeout(Duration.ofSeconds(2))
                 .build();
-       return template.getForEntity(provider.getUrl(),Provider.class).getBody();
+       return template.getForEntity(provider.getUrl(),ProductDto[].class).getBody();
 
     }
 }
