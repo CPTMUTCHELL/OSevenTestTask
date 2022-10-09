@@ -2,11 +2,12 @@ package com.example.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Builder
-public class ProviderDto {
-    private String name;
-    private double price;
+@Setter
+public class ProductDto {
     private String product;
+    private double price;
 }
